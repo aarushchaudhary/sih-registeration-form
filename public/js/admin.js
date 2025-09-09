@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${team.teamName}</td>
+                    <td>${team.sihProblemStatementId}</td>
                     <td>${team.teamLeaderName}</td>
                     <td>${team.teamLeaderPhone}</td>
                     <td>
@@ -86,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
         team.members.forEach((member, index) => {
             membersHtml += `
                 <li>
-                    <strong>Member ${index + 1}:</strong> ${member.name} (${member.sapId})<br>
-                    ${member.course} (${member.year} Year)<br>
+                    <strong>Member ${index + 1}:</strong> ${member.name} (${member.sapId}) - ${member.gender}<br>
+                    ${member.course} (${member.year} Year, Semester ${member.semester})<br>
                     ${member.email} | ${member.phone}
                 </li>`;
         });
@@ -146,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let headers = ['Team Name', 'Team Leader Name', 'Team Leader Phone', 'Registration Date', 'SIH Problem Statement ID', 'SIH Problem Statement', 'Category'];
         for (let i = 1; i <= maxMembers; i++) {
-            headers.push(`Member ${i} Name`, `Member ${i} SAP ID`, `Member ${i} Course`, `Member ${i} Year`, `Member ${i} Email`, `Member ${i} Phone`);
+            headers.push(`Member ${i} Name`, `Member ${i} SAP ID`, `Member ${i} Course`, `Member ${i} Year`, `Member ${i} Semester`, `Member ${i} Gender`, `Member ${i} Email`, `Member ${i} Phone`);
         }
 
         const rows = teams.map(team => {
@@ -163,9 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 0; i < maxMembers; i++) {
                 const member = team.members[i];
                 if (member) {
-                    row.push(escapeCsvCell(member.name), escapeCsvCell(member.sapId), escapeCsvCell(member.course), escapeCsvCell(member.year), escapeCsvCell(member.email), escapeCsvCell(member.phone));
+                    row.push(escapeCsvCell(member.name), escapeCsvCell(member.sapId), escapeCsvCell(member.course), escapeCsvCell(member.year), escapeCsvCell(member.semester), escapeCsvCell(member.gender), escapeCsvCell(member.email), escapeCsvCell(member.phone));
                 } else {
-                    row.push('', '', '', '', '', '');
+                    row.push('', '', '', '', '', '', '', '');
                 }
             }
             return row.join(',');

@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const memberFormsContainer = document.getElementById('member-forms-container');
     const memberTemplate = document.getElementById('member-form-template');
 
-    // --- NEW: Get leader input fields ---
     const leaderNameInput = document.getElementById('teamLeaderName');
     const leaderPhoneInput = document.getElementById('teamLeaderPhone');
 
@@ -35,11 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             memberFormsContainer.appendChild(formClone);
         }
-        // --- NEW: After forms are created, set up the auto-fill ---
         setupLeaderDataSync();
     };
 
-    // --- NEW: Function to sync leader data to the first member form ---
     const setupLeaderDataSync = () => {
         const firstMemberNameInput = memberFormsContainer.querySelector('input[name="name"]');
         const firstMemberPhoneInput = memberFormsContainer.querySelector('input[name="phone"]');
@@ -101,14 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
         submitButton.disabled = true;
         submitButton.textContent = 'Registering...';
 
-        const formData = new FormData(form);
         const teamData = {
-            teamName: formData.get('teamName'),
-            teamLeaderName: formData.get('teamLeaderName'),
-            teamLeaderPhone: formData.get('teamLeaderPhone'),
-            sihProblemStatementId: formData.get('sihProblemStatementId'),
-            sihProblemStatement: formData.get('sihProblemStatement'),
-            category: formData.get('category'),
+            teamName: form.teamName.value,
+            teamLeaderName: form.teamLeaderName.value,
+            teamLeaderPhone: form.teamLeaderPhone.value,
+            sihProblemStatementId: form.sihProblemStatementId.value,
+            sihProblemStatement: form.sihProblemStatement.value,
+            category: form.category.value,
             members: []
         };
 
@@ -119,11 +115,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 sapId: section.querySelector('input[name="sapId"]').value,
                 course: section.querySelector('select[name="course"]').value,
                 year: section.querySelector('select[name="year"]').value,
+                semester: section.querySelector('select[name="semester"]').value,
+                gender: section.querySelector('select[name="gender"]').value,
                 email: section.querySelector('input[name="email"]').value,
                 phone: section.querySelector('input[name="phone"]').value,
             };
             teamData.members.push(member);
         });
+
+        const hasGirl = teamData.members.some(member => member.gender === 'Girl');
+        if (!hasGirl) {
+            errorMessageEl.textContent = 'The team must include at least one girl.';
+            submitButton.disabled = false;
+            submitButton.textContent = 'Register Team';
+            return;
+        }
 
         try {
             const response = await fetch('/api/register', {

@@ -53,8 +53,14 @@
                     <div class="member-section">
                         <h4 class="member-title">Member Details</h4>
                         <div class="form-row">
-                            <div class="form-group"><label>Full Name</label><input type="text" name="name" required /></div>
-                            <div class="form-group"><label>SAP ID</label><input type="text" name="sapId" required pattern="[0-9]{11}" title="SAP ID must be exactly 11 digits." /></div>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" name="name" required />
+                            </div>
+                            <div class="form-group">
+                                <label>SAP ID</label>
+                                <input type="text" name="sapId" required pattern="[0-9]{11}" title="SAP ID must be exactly 11 digits." />
+                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
@@ -71,8 +77,38 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group"><label>Email ID (NMIMS)</label><input type="email" name="email" required /></div>
-                            <div class="form-group"><label>Phone No.</label><input type="tel" name="phone" required pattern="[0-9]{10}" title="Phone number must be exactly 10 digits." /></div>
+                            <div class="form-group">
+                                <label>Semester</label>
+                                <select name="semester" required>
+                                    <option value="">-- Select a Semester --</option>
+                                    <option value="1">1st</option>
+                                    <option value="2">2nd</option>
+                                    <option value="3">3rd</option>
+                                    <option value="4">4th</option>
+                                    <option value="5">5th</option>
+                                    <option value="6">6th</option>
+                                    <option value="7">7th</option>
+                                    <option value="8">8th</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select name="gender" required>
+                                    <option value="">-- Select a Gender --</option>
+                                    <option value="Boy">Boy</option>
+                                    <option value="Girl">Girl</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email ID (NMIMS)</label>
+                                <input type="email" name="email" required pattern=".+@(nmims\.edu\.in|nmims\.in|svkmmumbai\.onmicrosoft\.com)$" title="Please enter a valid NMIMS email address." />
+                            </div>
+                            <div class="form-group">
+                                <label>Phone No.</label>
+                                <input type="tel" name="phone" required pattern="[0-9]{10}" title="Phone number must be exactly 10 digits." />
+                            </div>
                         </div>
                     </div>
                 </template>
