@@ -71,7 +71,7 @@ router.get('/stats', async (req, res) => {
         res.json({
             teamsRegistered: teamsRegistered,
             registrationsOpen: true,
-            membersPerTeam: 4
+            membersPerTeam: 6
         });
     } catch (error) {
         res.status(500).json({ message: 'Error fetching stats', error: error.message });
@@ -83,17 +83,6 @@ router.post('/register', async (req, res) => {
     try {
         const newTeamData = req.body;
         
-        // --- NEW: VALIDATION FOR TEAM COMPOSITION ---
-        const members = newTeamData.members || [];
-        const hasStmeMember = members.some(member => member.school === 'STME');
-        const hasSptmMember = members.some(member => member.school === 'SPTM');
-
-        if (!hasStmeMember || !hasSptmMember) {
-            return res.status(400).json({
-                message: 'Team must include at least one member from the School of Technology Management & Engineering and one from the School of Pharmacy & Technology Management.'
-            });
-        }
-
         const newTeam = new Team(newTeamData);
         await newTeam.save();
         res.status(201).json({ message: 'Team registered successfully.' });

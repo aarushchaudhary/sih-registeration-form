@@ -76,12 +76,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modalTeamName.textContent = team.teamName;
         
-        let membersHtml = '<h3>Team Members</h3><ul>';
+        let membersHtml = `
+            <h3>Team Details</h3>
+            <p><strong>Problem Statement ID:</strong> ${team.sihProblemStatementId}</p>
+            <p><strong>Problem Statement:</strong> ${team.sihProblemStatement}</p>
+            <p><strong>Category:</strong> ${team.category}</p>
+            <h3>Team Members</h3>
+            <ul>`;
         team.members.forEach((member, index) => {
             membersHtml += `
                 <li>
                     <strong>Member ${index + 1}:</strong> ${member.name} (${member.sapId})<br>
-                    ${member.school} - ${member.course} (${member.year} Year)<br>
+                    ${member.course} (${member.year} Year)<br>
                     ${member.email} | ${member.phone}
                 </li>`;
         });
@@ -138,9 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const maxMembers = Math.max(0, ...teams.map(team => team.members.length));
         
-        let headers = ['Team Name', 'Team Leader Name', 'Team Leader Phone', 'Registration Date'];
+        let headers = ['Team Name', 'Team Leader Name', 'Team Leader Phone', 'Registration Date', 'SIH Problem Statement ID', 'SIH Problem Statement', 'Category'];
         for (let i = 1; i <= maxMembers; i++) {
-            headers.push(`Member ${i} Name`, `Member ${i} SAP ID`, `Member ${i} School`, `Member ${i} Course`, `Member ${i} Year`, `Member ${i} Email`, `Member ${i} Phone`);
+            headers.push(`Member ${i} Name`, `Member ${i} SAP ID`, `Member ${i} Course`, `Member ${i} Year`, `Member ${i} Email`, `Member ${i} Phone`);
         }
 
         const rows = teams.map(team => {
@@ -148,15 +154,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 escapeCsvCell(team.teamName),
                 escapeCsvCell(team.teamLeaderName),
                 escapeCsvCell(team.teamLeaderPhone),
-                escapeCsvCell(new Date(team.registrationDate).toLocaleString())
+                escapeCsvCell(new Date(team.registrationDate).toLocaleString()),
+                escapeCsvCell(team.sihProblemStatementId),
+                escapeCsvCell(team.sihProblemStatement),
+                escapeCsvCell(team.category)
             ];
             
             for (let i = 0; i < maxMembers; i++) {
                 const member = team.members[i];
                 if (member) {
-                    row.push(escapeCsvCell(member.name), escapeCsvCell(member.sapId), escapeCsvCell(member.school), escapeCsvCell(member.course), escapeCsvCell(member.year), escapeCsvCell(member.email), escapeCsvCell(member.phone));
+                    row.push(escapeCsvCell(member.name), escapeCsvCell(member.sapId), escapeCsvCell(member.course), escapeCsvCell(member.year), escapeCsvCell(member.email), escapeCsvCell(member.phone));
                 } else {
-                    row.push('', '', '', '', '', '', '');
+                    row.push('', '', '', '', '', '');
                 }
             }
             return row.join(',');

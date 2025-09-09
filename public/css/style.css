@@ -470,3 +470,14 @@ input:checked + .slider:before {
     margin: 20px auto;
     box-sizing: border-box;
 }
+
+/* Center the container for the homepage registration button */
+#register-button-container {
+    text-align: center;
+}
+
+/* Adjust the button's width specifically for the homepage */
+#register-button-container .button-red {
+    width: auto; /* Allow the button to size based on its text and padding */
+    padding: 12px 30px; /* Add horizontal padding for better appearance */
+}

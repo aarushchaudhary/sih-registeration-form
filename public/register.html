@@ -29,6 +29,22 @@
                         <input type="tel" id="teamLeaderPhone" name="teamLeaderPhone" required />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>SIH Problem Statement ID</label>
+                    <input type="text" name="sihProblemStatementId" required />
+                </div>
+                <div class="form-group">
+                    <label>SIH Problem Statement</label>
+                    <input type="text" name="sihProblemStatement" required />
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" required>
+                        <option value="">-- Select a Category --</option>
+                        <option value="Hardware">Hardware</option>
+                        <option value="Software">Software</option>
+                    </select>
+                </div>
                 <hr style="margin: 30px 0;" />
 
                 <div id="member-forms-container"></div>
@@ -42,25 +58,16 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>School</label>
-                                <select name="school" required class="school-select">
-                                    <option value="">-- Select a School --</option>
-                                    <option value="STME">School of Technology Management & Engineering</option>
-                                    <option value="SPTM">School of Pharmacy & Technology Management</option>
-                                    <option value="SOL">School of Law</option>
-                                    <option value="SOC">School of Commerce</option>
-                                    <option value="SBM">School of Business Management</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row dynamic-fields-container" style="display: none;">
-                            <div class="form-group">
                                 <label>Course</label>
-                                <select name="course" required class="course-select"></select>
+                                <select name="course" required class="course-select">
+                                    <option value="">-- Select a Course --</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Year</label>
-                                <select name="year" required class="year-select"></select>
+                                <select name="year" required class="year-select">
+                                     <option value="">-- Select a Year --</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">

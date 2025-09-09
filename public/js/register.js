@@ -8,27 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const leaderNameInput = document.getElementById('teamLeaderName');
     const leaderPhoneInput = document.getElementById('teamLeaderPhone');
 
-    const schoolData = {
-        'STME': {
-            courses: ['B.Tech Computer Engineering', 'B. Tech. Computer Science and Engineering (Data Science)'],
-            years: ['1st', '2nd', '3rd', '4th']
-        },
-        'SPTM': {
-            courses: ['B.Pharm + MBA (Pharma Tech)'],
-            years: ['1st', '2nd', '3rd', '4th', '5th']
-        },
-        'SOL': {
-            courses: ['B.A., LL.B. (Hons.)', 'B.B.A., LL.B. (Hons.)'],
-            years: ['1st', '2nd', '3rd', '4th', '5th']
-        },
-        'SOC': {
-            courses: ['B.B.A. (Bachelors In Business Administration)'],
-            years: ['1st', '2nd', '3rd', '4th']
-        },
-        'SBM': {
-            courses: ['MBA (Master of Business Administration)'],
-            years: ['1st', '2nd']
-        }
+    const courseData = {
+        'B.Tech Computer Engineering': ['1st', '2nd', '3rd', '4th'],
+        'B. Tech. Computer Science and Engineering (Data Science)': ['1st', '2nd', '3rd', '4th']
     };
 
     const generateMemberForms = (teamSize) => {
@@ -41,12 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 title.textContent = `Member ${i} Details`;
             }
 
-            const schoolSelect = formClone.querySelector('.school-select');
-            if (schoolSelect) {
-                schoolSelect.addEventListener('change', (event) => {
-                    const selectedSchool = event.target.value;
+            const courseSelect = formClone.querySelector('.course-select');
+            if (courseSelect) {
+                populateCourseDropdown(courseSelect);
+                courseSelect.addEventListener('change', (event) => {
+                    const selectedCourse = event.target.value;
                     const memberSection = event.target.closest('.member-section');
-                    populateDropdowns(selectedSchool, memberSection);
+                    populateYearDropdown(selectedCourse, memberSection);
                 });
             }
             
@@ -74,28 +57,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const populateDropdowns = (school, memberSection) => {
+    const populateCourseDropdown = (courseSelect) => {
+        if (!courseSelect) return;
+        
+        Object.keys(courseData).forEach(course => {
+            courseSelect.innerHTML += `<option value="${course}">${course}</option>`;
+        });
+    };
+
+    const populateYearDropdown = (course, memberSection) => {
         if (!memberSection) return;
-        const dynamicFieldsContainer = memberSection.querySelector('.dynamic-fields-container');
-        const courseSelect = memberSection.querySelector('.course-select');
         const yearSelect = memberSection.querySelector('.year-select');
 
-        if (!dynamicFieldsContainer || !courseSelect || !yearSelect) return;
+        if (!yearSelect) return;
 
-        courseSelect.innerHTML = '<option value="">-- Select a Course --</option>';
         yearSelect.innerHTML = '<option value="">-- Select a Year --</option>';
 
-        if (school && schoolData[school]) {
-            const data = schoolData[school];
-            data.courses.forEach(course => {
-                courseSelect.innerHTML += `<option value="${course}">${course}</option>`;
-            });
-            data.years.forEach(year => {
+        if (course && courseData[course]) {
+            const years = courseData[course];
+            years.forEach(year => {
                 yearSelect.innerHTML += `<option value="${year}">${year}</option>`;
             });
-            dynamicFieldsContainer.style.display = 'flex';
-        } else {
-            dynamicFieldsContainer.style.display = 'none';
         }
     };
 
@@ -124,6 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
             teamName: formData.get('teamName'),
             teamLeaderName: formData.get('teamLeaderName'),
             teamLeaderPhone: formData.get('teamLeaderPhone'),
+            sihProblemStatementId: formData.get('sihProblemStatementId'),
+            sihProblemStatement: formData.get('sihProblemStatement'),
+            category: formData.get('category'),
             members: []
         };
 
@@ -132,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const member = {
                 name: section.querySelector('input[name="name"]').value,
                 sapId: section.querySelector('input[name="sapId"]').value,
-                school: section.querySelector('select[name="school"]').value,
                 course: section.querySelector('select[name="course"]').value,
                 year: section.querySelector('select[name="year"]').value,
                 email: section.querySelector('input[name="email"]').value,
