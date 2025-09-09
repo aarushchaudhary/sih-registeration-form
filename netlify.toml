@@ -1,0 +1,11 @@
+[build]
+  # Your website files are in the 'public' folder
+  publish = "public"
+  
+  # Your serverless function is in the 'api' folder
+  functions = "api"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/server/:splat"
+  status = 200

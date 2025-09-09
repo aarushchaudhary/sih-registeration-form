@@ -1,0 +1,21 @@
+{
+  "name": "codequest-event-app",
+  "version": "1.0.0",
+  "description": "Event registration application",
+  "main": "api/server.js",
+  "scripts": {
+    "start": "node api/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.0",
+    "serverless-http": "^3.2.0"
+  }
+}
