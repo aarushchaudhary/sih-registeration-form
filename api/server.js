@@ -83,6 +83,16 @@ router.post('/register', async (req, res) => {
     try {
         const newTeamData = req.body;
         
+        // --- GENDER VALIDATION ---
+        const members = newTeamData.members || [];
+        const hasGirl = members.some(member => member.gender === 'Girl');
+
+        if (!hasGirl) {
+            return res.status(400).json({
+                message: 'The team must include at least one girl.'
+            });
+        }
+
         const newTeam = new Team(newTeamData);
         await newTeam.save();
         res.status(201).json({ message: 'Team registered successfully.' });

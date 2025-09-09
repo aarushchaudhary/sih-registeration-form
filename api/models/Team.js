@@ -5,6 +5,8 @@ const MemberSchema = new mongoose.Schema({
     sapId: { type: String, required: true },
     course: { type: String, required: true },
     year: { type: String, required: true },
+    semester: { type: String, required: true },
+    gender: { type: String, enum: ['Boy', 'Girl'], required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
 });
