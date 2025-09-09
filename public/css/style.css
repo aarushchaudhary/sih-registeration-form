@@ -481,3 +481,16 @@ input:checked + .slider:before {
     width: auto; /* Allow the button to size based on its text and padding */
     padding: 12px 30px; /* Add horizontal padding for better appearance */
 }
+
+.modal-content {
+    background: white;
+    color: #333;
+    padding: 30px 40px;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    max-height: 80vh; /* Add this line */
+    overflow-y: auto; /* Add this line */
+}
