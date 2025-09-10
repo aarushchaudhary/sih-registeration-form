@@ -85,9 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <h3>Team Members</h3>
             <ul>`;
         team.members.forEach((member, index) => {
+            // Check if it's the first member (index 0) and label as "Team Leader"
+            const title = index === 0 ? 'Team Leader' : `Member ${index + 1}`;
             membersHtml += `
                 <li>
-                    <strong>Member ${index + 1}:</strong> ${member.name} (${member.sapId}) - ${member.gender}<br>
+                    <strong>${title}:</strong> ${member.name} (${member.sapId}) - ${member.gender}<br>
                     ${member.course} (${member.year} Year, Semester ${member.semester})<br>
                     ${member.email} | ${member.phone}
                 </li>`;
@@ -147,7 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let headers = ['Team Name', 'Team Leader Name', 'Team Leader Phone', 'Registration Date', 'SIH Problem Statement ID', 'SIH Problem Statement', 'Category'];
         for (let i = 1; i <= maxMembers; i++) {
-            headers.push(`Member ${i} Name`, `Member ${i} SAP ID`, `Member ${i} Course`, `Member ${i} Year`, `Member ${i} Semester`, `Member ${i} Gender`, `Member ${i} Email`, `Member ${i} Phone`);
+            // Check if it's the first member (i === 1) and label as "Team Leader"
+            const prefix = i === 1 ? 'Team Leader' : `Member ${i}`;
+            headers.push(`${prefix} Name`, `${prefix} SAP ID`, `${prefix} Course`, `${prefix} Year`, `${prefix} Semester`, `${prefix} Gender`, `${prefix} Email`, `${prefix} Phone`);
         }
 
         const rows = teams.map(team => {

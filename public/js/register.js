@@ -19,7 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const title = formClone.querySelector('.member-title');
             if (title) {
-                title.textContent = `Member ${i} Details`;
+                // Change title for the first member to "Team Leader"
+                if (i === 1) {
+                    title.textContent = 'Team Leader Details';
+                } else {
+                    title.textContent = `Member ${i} Details`;
+                }
             }
 
             const courseSelect = formClone.querySelector('.course-select');
